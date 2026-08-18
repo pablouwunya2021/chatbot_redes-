@@ -1,0 +1,25 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Runtime artifacts
+logs/*.log
+logs/*.jsonl
+workspace/
+!workspace/.gitkeep
+
+# OS
+.DS_Store
+
+# Wireshark captures (can be large / contain local data)
+docs/wireshark/*.pcapng
+docs/wireshark/*.pcap
+!docs/wireshark/sample_capture_notes.md

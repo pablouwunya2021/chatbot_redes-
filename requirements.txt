@@ -1,0 +1,17 @@
+# Core LLM API (allowed: the assignment forbids MCP SDKs, not the LLM SDK)
+anthropic>=0.39.0
+
+# Environment configuration
+python-dotenv>=1.0.0
+
+# Terminal UI (15% extra)
+rich>=13.7.0
+
+# Web UI (15% extra)
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+
+# NOTE:
+# The MCP protocol itself is implemented BY HAND in this project using raw
+# JSON-RPC 2.0 (see src/host/mcp_client.py and src/servers/pharmacy/).
+# No MCP SDK, FastMCP, or similar library is used, as required by the spec.
