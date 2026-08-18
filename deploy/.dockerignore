@@ -1,0 +1,10 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+logs/
+workspace/
+docs/
+.git/
+.env
+*.pcapng
