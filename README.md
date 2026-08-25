@@ -149,12 +149,11 @@ src/
   demo_git_filesystem.py
   demo_remote_session.py
 deploy/                 Dockerfile + Cloud Run / Cloudflare guide
-docs/                   report, technical doc, server spec, presentation, wireshark
+docs/                   report, server spec, wireshark analysis
 logs/                   JSON-Lines interaction logs
 ```
 
-Full documentation: [`docs/DOCUMENTO_TECNICO.md`](docs/DOCUMENTO_TECNICO.md)
-(architecture) · [`docs/SERVER_SPEC.md`](docs/SERVER_SPEC.md) (server spec) ·
+Full documentation: [`docs/SERVER_SPEC.md`](docs/SERVER_SPEC.md) (server spec) ·
 [`docs/REPORTE.md`](docs/REPORTE.md) (report) ·
 [`docs/wireshark/WIRESHARK_ANALYSIS.md`](docs/wireshark/WIRESHARK_ANALYSIS.md).
 
