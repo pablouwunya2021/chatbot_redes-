@@ -12,7 +12,7 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /app
 
-# Server-only dependencies (no anthropic SDK needed on the server).
+# Server-only dependencies (no LLM SDK needed on the server).
 COPY deploy/requirements-server.txt ./requirements-server.txt
 RUN pip install --no-cache-dir -r requirements-server.txt
 

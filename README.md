@@ -21,7 +21,7 @@ inventory and places an order.
 ## Features (mapped to the assignment)
 
 - **General chat via the LLM API** — answers from the model's own knowledge
-  (`src/host/llm.py`, Anthropic Messages API).
+  (`src/host/llm.py`, Google Gemini API).
 - **Conversation context** — the full `messages` history is preserved across
   turns, so follow-up questions ("…and when was he born?") resolve correctly.
 - **Interaction log** — every JSON-RPC request/response with every MCP server
@@ -49,7 +49,7 @@ inventory and places an order.
 - **Python 3.10+**
 - **Node.js + npx** (runs the official Filesystem server)
 - **uv / uvx** (runs the official Git server) — https://docs.astral.sh/uv/
-- An **Anthropic API key** (free course credits, no card needed)
+- A **Google Gemini API key** (free from Google AI Studio, no card needed)
 
 ---
 
@@ -69,8 +69,8 @@ cp .env.example .env               # then edit .env and paste your API key
 `.env` keys:
 
 ```ini
-ANTHROPIC_API_KEY=sk-ant-...
-ANTHROPIC_MODEL=claude-sonnet-4-5
+GEMINI_API_KEY=AIza...
+GEMINI_MODEL=gemini-2.0-flash
 FILESYSTEM_ROOT=./workspace
 PHARMACY_REMOTE_URL=http://127.0.0.1:8000/mcp
 PHARMACY_API_KEY=demo-key
@@ -136,7 +136,7 @@ src/
   host/                 the chatbot host (MCP anfitrión)
     mcp_client.py       hand-written JSON-RPC MCP client (stdio + HTTP)
     chatbot.py          session: connects servers, routes tools, keeps context
-    llm.py              Anthropic Messages API + tool-use loop
+    llm.py              Google Gemini API + tool-use loop
     logger.py           interaction log (requirement #3)
     config.py           MCP server registry
     cli.py              terminal UI (15% extra)
@@ -162,5 +162,5 @@ Full documentation: [`docs/SERVER_SPEC.md`](docs/SERVER_SPEC.md) (server spec) �
 ## Academic integrity
 
 The MCP protocol is implemented from the JSON-RPC 2.0 and MCP specifications
-(no MCP SDK). The Anthropic SDK is used only to reach the LLM over its HTTP
+(no MCP SDK). The Google Gemini SDK is used only to reach the LLM over its HTTP
 API. Third-party references are cited in code comments where used.

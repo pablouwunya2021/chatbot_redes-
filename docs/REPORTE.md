@@ -8,12 +8,12 @@
 | **Proyecto** | Chatbot con Model Context Protocol (MCP) |
 | **Caso de uso del servidor propio** | Cadena de farmacias "FarmaValle" |
 | **Lenguaje** | Python 3 |
-| **LLM** | Anthropic Claude (vía API de Mensajes) |
+| **LLM** | Google Gemini (vía API de Gemini) |
 | **Repositorio** | *(URL del repositorio)* |
 
 > El protocolo MCP se implementó **manualmente sobre JSON-RPC 2.0**, sin usar
-> SDKs de MCP ni FastMCP, tal como exige el enunciado. El SDK de Anthropic se
-> utiliza únicamente para hablar con el LLM a nivel de su API.
+> SDKs de MCP ni FastMCP, tal como exige el enunciado. El SDK de Google Gemini
+> se utiliza únicamente para hablar con el LLM a nivel de su API.
 
 ---
 
@@ -50,7 +50,7 @@ MCP define tres actores:
 
 ```
                     +---------------------- Anfitrión (chatbot) ----------------------+
-                    |   ChatSession  +  LLM (Anthropic API)  +  log de interacciones   |
+                    |   ChatSession  +  LLM (Gemini API)  +  log de interacciones     |
                     |     |Cliente 1        |Cliente 2        |Cliente 3               |
                     +-----|-----------------|-----------------|------------------------+
                           | stdio           | stdio           | stdio (local)/HTTP (remoto)
@@ -85,7 +85,8 @@ MCP define tres actores:
 (nombradas `servidor__herramienta` para evitar colisiones), mantiene el
 **contexto** de la conversación (lista `messages`) y **enruta** cada llamada de
 herramienta que pide el LLM al cliente correcto. `src/host/llm.py` traduce las
-herramientas MCP al formato de Anthropic y ejecuta el bucle *tool-use*.
+herramientas MCP al formato de *function declarations* de Gemini y ejecuta el
+bucle *tool-use*.
 
 ### 4.3 Servidores MCP oficiales (Requisito #4)
 

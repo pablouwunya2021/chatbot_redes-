@@ -1,5 +1,5 @@
 # Core LLM API (allowed: the assignment forbids MCP SDKs, not the LLM SDK)
-anthropic>=0.39.0
+google-genai>=1.0.0
 
 # Environment configuration
 python-dotenv>=1.0.0

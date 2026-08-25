@@ -33,14 +33,15 @@ class ChatSession:
         self.connections: dict[str, MCPServerConnection] = {}
         # namespaced tool name ("server__tool") -> (connection, tool_def)
         self.tool_index: dict[str, tuple] = {}
-        self.messages: list[dict] = []  # conversation context (requirement #2)
+        self.contents: list = []  # conversation context (requirement #2)
+        self._tools = None  # Gemini tool declarations, built lazily
 
-        self.enable_llm = enable_llm and bool(config.ANTHROPIC_API_KEY)
+        self.enable_llm = enable_llm and bool(config.GEMINI_API_KEY)
         self._client = None
         if self.enable_llm:
-            import anthropic
+            from google import genai
 
-            self._client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
+            self._client = genai.Client(api_key=config.GEMINI_API_KEY)
 
     # -- connection management ---------------------------------------------
     def connect_all(self, skip: Optional[set] = None) -> dict[str, str]:
@@ -113,23 +114,24 @@ class ChatSession:
         """Handle one user message, keeping full context across calls."""
         if not self.enable_llm:
             raise RuntimeError(
-                "LLM is disabled (no ANTHROPIC_API_KEY). Use direct tool calls "
+                "LLM is disabled (no GEMINI_API_KEY). Use direct tool calls "
                 "with the /call command, or set your API key in .env."
             )
-        self.messages.append({"role": "user", "content": user_text})
-        tools = llm.mcp_tools_to_anthropic(self.tool_index)
+        if self._tools is None:
+            self._tools = llm.build_tools(self.tool_index)
+        llm.append_user_text(self.contents, user_text)
         answer = llm.run_conversation_turn(
             client=self._client,
-            model=config.ANTHROPIC_MODEL,
-            messages=self.messages,
-            tools=tools,
+            model=config.GEMINI_MODEL,
+            contents=self.contents,
+            tools=self._tools,
             dispatch_tool=self._dispatch_tool,
             on_event=on_event,
         )
         return answer
 
     def reset_context(self) -> None:
-        self.messages.clear()
+        self.contents.clear()
 
     # -- introspection ------------------------------------------------------
     def list_tools(self) -> list[dict]:

@@ -129,7 +129,7 @@ def main() -> None:
 
     if not session.enable_llm:
         console.print(
-            "[yellow]No ANTHROPIC_API_KEY set: chat is disabled, but you can still "
+            "[yellow]No GEMINI_API_KEY set: chat is disabled, but you can still "
             "use /tools, /servers, /log and /call to drive the MCP servers.[/yellow]"
         )
 

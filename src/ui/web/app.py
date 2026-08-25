@@ -64,7 +64,7 @@ def chat(body: ChatIn):
     if not SESSION.enable_llm:
         return JSONResponse(
             status_code=503,
-            content={"error": "LLM disabled: set ANTHROPIC_API_KEY in .env to chat. "
+            content={"error": "LLM disabled: set GEMINI_API_KEY in .env to chat. "
                               "Tool inspection endpoints still work."},
         )
     events: list[dict] = []
