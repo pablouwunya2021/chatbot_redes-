@@ -6,7 +6,7 @@
 | | |
 |---|---|
 | **Estudiante** | Pablo Cabrera |
-| **Carné** | *(escribe tu número de carné)* |
+| **Carné** | 231156 |
 | **Proyecto** | Chatbot con Model Context Protocol (MCP) — trabajo individual |
 | **Caso de uso del servidor propio** | Cadena de farmacias "FarmaValle" |
 | **Lenguaje** | Python 3 |
@@ -165,9 +165,19 @@ Procedimiento completo y reproducible en
 captura contra el servidor remoto ejecutándose en **HTTP plano local** (Cloud
 Run cifra con TLS; para leer el contenido se usa HTTP plano o `SSLKEYLOGFILE`).
 La captura se realizó sobre la interfaz de *loopback* filtrando `tcp.port == 8000`
-(archivo `docs/wireshark/capture.pcapng`); las capturas de pantalla del handshake
-TCP, de un `POST /mcp` con su JSON y del desglose por capas se incluyen a
-continuación.
+(archivo `docs/wireshark/capture.pcapng`, 100 paquetes capturados).
+
+![Figura 1](wireshark/img/01_initialize_capas.png)
+
+**Figura 1.** Paquete del mensaje `initialize` capturado en *loopback*. En el
+panel superior se ve el **payload de aplicación**: el mensaje JSON-RPC 2.0
+`{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18",...,"clientInfo":{"name":"uvg-redes-chatbot",...}}}`,
+es decir la **petición de sincronización inicial** del *handshake* MCP. En el
+panel inferior se observa el anidamiento por capas de este mismo paquete:
+**Null/Loopback** (enlace) → **IPv4** con origen y destino `127.0.0.1` (red) →
+**TCP** puerto 8000 (transporte) → **HTTP** que transporta el JSON (aplicación).
+El paquete mide 248 bytes y el mensaje completo se reensambla en 467 bytes de
+TCP, confirmando la segmentación descrita en §6.2.
 
 ### 6.1 Clasificación de mensajes JSON-RPC
 
