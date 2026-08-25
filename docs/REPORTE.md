@@ -167,7 +167,7 @@ Run cifra con TLS; para leer el contenido se usa HTTP plano o `SSLKEYLOGFILE`).
 La captura se realizó sobre la interfaz de *loopback* filtrando `tcp.port == 8000`
 (archivo `docs/wireshark/capture.pcapng`, 100 paquetes capturados).
 
-![Figura 1](wireshark/img/01_initialize_capas.png)
+![Figura 1](wireshark/img/01_initialize_capas.jpeg)
 
 **Figura 1.** Paquete del mensaje `initialize` capturado en *loopback*. En el
 panel superior se ve el **payload de aplicación**: el mensaje JSON-RPC 2.0
