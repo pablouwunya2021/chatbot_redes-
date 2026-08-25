@@ -5,11 +5,14 @@
 
 | | |
 |---|---|
-| **Proyecto** | Chatbot con Model Context Protocol (MCP) |
+| **Estudiante** | Pablo Cabrera |
+| **Carné** | *(escribe tu número de carné)* |
+| **Proyecto** | Chatbot con Model Context Protocol (MCP) — trabajo individual |
 | **Caso de uso del servidor propio** | Cadena de farmacias "FarmaValle" |
 | **Lenguaje** | Python 3 |
 | **LLM** | Google Gemini (vía API de Gemini) |
-| **Repositorio** | *(URL del repositorio)* |
+| **Repositorio** | https://github.com/pablouwunya2021/chatbot_redes- |
+| **Servidor remoto (Cloud Run)** | https://pharmacy-mcp-740391845268.us-central1.run.app/mcp |
 
 > El protocolo MCP se implementó **manualmente sobre JSON-RPC 2.0**, sin usar
 > SDKs de MCP ni FastMCP, tal como exige el enunciado. El SDK de Google Gemini
@@ -132,6 +135,13 @@ como simple servidor HTTP; el protocolo sigue siendo manual). Se empaqueta con
 local: `python src/host/cli.py --remote`. Lo único que cambia es el transporte
 (stdio → HTTP).
 
+El servidor se desplegó efectivamente en Google Cloud Run y quedó operativo en
+`https://pharmacy-mcp-740391845268.us-central1.run.app/mcp`. Se verificó de
+extremo a extremo: el cliente hecho a mano completó el *handshake*, listó las 7
+herramientas y ejecutó varias `tools/call` (incluida la creación de un pedido)
+contra la instancia en la nube, demostrando que el chatbot consume el servidor
+remoto exactamente igual que el local.
+
 ## 5. Funcionalidades (mapa con la rúbrica)
 
 | Requisito | Estado | Evidencia |
@@ -154,6 +164,10 @@ Procedimiento completo y reproducible en
 [`docs/wireshark/WIRESHARK_ANALYSIS.md`](wireshark/WIRESHARK_ANALYSIS.md). Se
 captura contra el servidor remoto ejecutándose en **HTTP plano local** (Cloud
 Run cifra con TLS; para leer el contenido se usa HTTP plano o `SSLKEYLOGFILE`).
+La captura se realizó sobre la interfaz de *loopback* filtrando `tcp.port == 8000`
+(archivo `docs/wireshark/capture.pcapng`); las capturas de pantalla del handshake
+TCP, de un `POST /mcp` con su JSON y del desglose por capas se incluyen a
+continuación.
 
 ### 6.1 Clasificación de mensajes JSON-RPC
 
