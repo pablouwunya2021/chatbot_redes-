@@ -30,7 +30,7 @@ SRC_ROOT = PROJECT_ROOT / "src"
 # --- LLM settings -----------------------------------------------------------
 # GEMINI_API_KEY is the env var read by the google-genai SDK by convention.
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "") or os.getenv("GOOGLE_API_KEY", "")
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
 
 # --- Filesystem sandbox -----------------------------------------------------
 FILESYSTEM_ROOT = Path(
