@@ -1,0 +1,14 @@
+# Files NOT uploaded to Cloud Build when running `gcloud run deploy --source .`
+# Keeps the build small and avoids shipping local artifacts / secrets.
+.venv/
+venv/
+__pycache__/
+*.pyc
+logs/
+workspace/
+docs/
+tests/
+.git/
+.env
+*.pcapng
+*.pcap
